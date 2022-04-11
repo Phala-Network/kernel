@@ -9,7 +9,7 @@ import { WebWorkerTransport } from 'decentraland-rpc/lib/common/transports/WebWo
 import { ensureMetaConfigurationInitialized } from 'shared/meta'
 import { getResourcesURL } from 'shared/location'
 
-import { parcelLimits, ENABLE_EMPTY_SCENES, LOS, getAssetBundlesBaseUrl, ENABLE_TEST_SCENES } from 'config'
+import { parcelLimits, ENABLE_EMPTY_SCENES, LOS, getAssetBundlesBaseUrl, PHALA_SECURE_SERVER } from 'config'
 
 import { ILand } from 'shared/types'
 import { getFetchContentServer, getCatalystServer, getSelectedNetwork } from 'shared/dao/selectors'
@@ -154,11 +154,11 @@ export async function initParcelSceneWorker() {
   const state = store.getState()
 
   const fullRootUrl = getResourcesURL('.')
-  const localServer = resolveUrl(`${location.protocol}//${location.hostname}:${8080}`, '/local-ipfs')
+  const phalaServer = resolveUrl(`${location.protocol}//phala.sfzhou.bar`, '/catalyst')
 
   server.notify('Lifecycle.initialize', {
-    contentServer: ENABLE_TEST_SCENES ? localServer : getFetchContentServer(state),
-    catalystServer: ENABLE_TEST_SCENES ? localServer : getCatalystServer(state),
+    contentServer: PHALA_SECURE_SERVER ? phalaServer : getFetchContentServer(state),
+    catalystServer: PHALA_SECURE_SERVER ? phalaServer : getCatalystServer(state),
     contentServerBundles: getAssetBundlesBaseUrl(getSelectedNetwork(state)) + '/',
     rootUrl: fullRootUrl,
     lineOfSightRadius: LOS ? Number.parseInt(LOS, 10) : parcelLimits.visibleRadius,

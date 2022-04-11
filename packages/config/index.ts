@@ -214,7 +214,7 @@ export function getTLD() {
 export const WITH_FIXED_COLLECTIONS =
   (qs.get('WITH_COLLECTIONS') && ensureSingleString(qs.get('WITH_COLLECTIONS'))) || ''
 export const ENABLE_EMPTY_SCENES = !location.search.includes('DISABLE_EMPTY_SCENES')
-export const ENABLE_TEST_SCENES = location.search.includes('ENABLE_TEST_SCENES')
+export const PHALA_SECURE_SERVER = location.search.includes('PHALA_SECURE_SERVER')
 
 export function getAssetBundlesBaseUrl(network: ETHEREUM_NETWORK): string {
   const state = store.getState()
